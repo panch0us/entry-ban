@@ -38,7 +38,7 @@ class XlsxHandler:
             if elem[0] is None:
                 break
             else:
-                self.final_list.append(elem)
+                self.final_list.append([tuple(elem)])
         # пропускаем заголовочную строку [1:]
         return self.final_list[1:]
 
