@@ -1,3 +1,5 @@
+# Версия 1.0.1
+
 from user_interaction import Questions
 from excel import XlsxHandler
 from db import DBConnect, DBInfo
@@ -7,7 +9,7 @@ DEBUG = False
 
 class Manager:
     def __init__(self):
-        # Получаем адрес клиента и сведения для подключения в СУБД
+        # Получаем адрес клиента и сведения (имя, пароль) для подключения в СУБД
         settings_db = DBInfo()
         client_path = settings_db.settings["client_path"]
         connection = settings_db.settings["connection"]
@@ -33,4 +35,4 @@ class Manager:
 
 if __name__ == '__main__':
     program = Manager()
-    input('для выхода из программы нажмите enter: ')
+    input('для выхода из программы нажмите enter.')

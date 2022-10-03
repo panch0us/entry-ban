@@ -1,4 +1,5 @@
 import datetime
+import sys
 import openpyxl
 
 
@@ -9,10 +10,23 @@ class XlsxHandler:
     """
     def __init__(self, full_path):
         self.full_path = full_path
-        self.book = openpyxl.load_workbook(self.full_path)
+        try:
+            self.book = openpyxl.load_workbook(self.full_path)
+        except FileNotFoundError:
+            print(f'*********************************************************\n'
+                  f'Не найден файл: "{self.full_path}".\n'
+                  f'Возможны 2 варианта возникновения проблемы:\n'
+                  f'1. Скопированный в корень программы файл "*.xlsx" называется иначе (необходимо переименовать в "{self.full_path}";\n'
+                  f'2. Файл "{self.full_path}" отсутсвует в корне программы.')
+            input('Нажмите enter для завершения программы.')
+            sys.exit()
         self.sheet = self.book.worksheets[0]
 
     def caller(self):
+        """
+        Определение какой из файлов выбран для дальнейшей обработки
+        :return: list (готовый список лиц без первых строки и столбца)
+        """
         if self.full_path == "Федеральная ОСК.xlsx":
             self.final = self.osk_fed()
             self.book.close()
